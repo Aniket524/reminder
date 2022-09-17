@@ -30,44 +30,44 @@ mongoose
 // app.get("/", (req, res) => sendmsg());
 app.use("/", reminderRoute);
 
-setInterval(() => {
-  Reminder.find({}, (err, reminderList) => {
-    if (err) {
-      console.log(err);
-    } else {
-      reminderList.forEach((reminder) => {
-        if (!reminder.isReminded) {
-          const now = new Date();
-          if (new Date(reminder.remindAt) - now < 0) {
-            Reminder.findByIdAndUpdate(
-              reminder._id,
-              { isReminded: true },
-              (err, remindObj) => {
-                if (err) {
-                  console.log(err);
-                } else {
-                  //send Message
-                  const client = twilio(
-                    "ACe41d642ea4877cf0f955e216d89457df",
-                    "03a88c0399f8a1768836f4b03e22eb75"
-                  );
-                  client.messages
-                    .create({
-                      body: reminder.reminderMsg,
-                      messagingServiceSid: "MG950b4a776c2df543a906d002c70ea534",
-                      to: "+917822960075",
-                    })
-                    .then((message) => console.log(message.sid))
-                    .done();
-                }
-              }
-            );
-          }
-        }
-      });
-    }
-  });
-}, 30000);
+// setInterval(() => {
+//   Reminder.find({}, (err, reminderList) => {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       reminderList.forEach((reminder) => {
+//         if (!reminder.isReminded) {
+//           const now = new Date();
+//           if (new Date(reminder.remindAt) - now < 0) {
+//             Reminder.findByIdAndUpdate(
+//               reminder._id,
+//               { isReminded: true },
+//               (err, remindObj) => {
+//                 if (err) {
+//                   console.log(err);
+//                 } else {
+//                   //send Message
+//                   const client = twilio(
+//                     "ACe41d642ea4877cf0f955e216d89457df",
+//                     "03a88c0399f8a1768836f4b03e22eb75"
+//                   );
+//                   client.messages
+//                     .create({
+//                       body: reminder.reminderMsg,
+//                       messagingServiceSid: "MG950b4a776c2df543a906d002c70ea534",
+//                       to: "+917822960075",
+//                     })
+//                     .then((message) => console.log(message.sid))
+//                     .done();
+//                 }
+//               }
+//             );
+//           }
+//         }
+//       });
+//     }
+//   });
+// }, 30000);
 
 //geting port number
 const PORT = process.env.PORT || 3001;
