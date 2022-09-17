@@ -27,7 +27,7 @@ mongoose
   .then(() => console.log("databse connected successfully😍"))
   .catch(() => console.log("error in connectiong to databse"));
 
-app.get("/", (req, res) => sendmsg());
+// app.get("/", (req, res) => sendmsg());
 app.use("/", reminderRoute);
 
 setInterval(() => {
